@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PODD Prototype with Categories, Textbox, and Clear Button</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #0078D7;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #ffffff;
+            border-right: 2px solid #ddd;
+            box-sizing: border-box;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            padding: 0;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .category-list li:hover, .category-list li.selected {
+            background-color: #0078D7;
+            color: #fff;
+            border-color: #0078D7;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .podd-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-auto-rows: minmax(120px, auto);
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        .podd-item {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .podd-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+
+        .podd-item span {
+            font-size: 14px;
+            text-align: center;
+            color: #333;
+        }
+
+        .podd-item.selected {
+            border-color: #0078D7;
+            box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+        }
+
+        .textbox-container {
+            padding: 10px;
+            background-color: #ffffff;
+            border-top: 2px solid #ddd;
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .textbox-container textarea {
+            flex: 1;
+            height: 60px;
+            resize: none;
+            font-size: 16px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .textbox-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #0078D7;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        .textbox-container button:hover {
+            background-color: #005bac;
+        }
+
+        @media (pointer: coarse) {
+            .podd-item img {
+                width: 80px;
+                height: 80px;
+            }
+            .podd-item span {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">PODD Communication Interface (Prototype)</div>
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>Categories</h2>
+            <ul class="category-list">
+                <li data-category="core">Core Words</li>
+                <li data-category="people">People</li>
+                <li data-category="foods">Foods</li>
+                <li data-category="actions">Actions</li>
+                <li data-category="places">Places</li>
+            </ul>
+        </div>
+        <div class="content-area">
+            <div class="podd-container" id="podd-container">
+                <!-- Icons will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <div class="textbox-container">
+        <textarea id="selection-textbox" placeholder="Your selections will appear here..."></textarea>
+        <button id="clear-button">Clear</button>
+    </div>
+
+    <script>
+        // Define category data
+        const categories = {
+            "core": [
+                { label: "Yes",    img: "https://via.placeholder.com/60" },
+                { label: "No",     img: "https://via.placeholder.com/60" },
+                { label: "More",   img: "https://via.placeholder.com/60" },
+                { label: "Finished", img: "https://via.placeholder.com/60" },
+                { label: "Help",   img: "https://via.placeholder.com/60" },
+                { label: "Like",   img: "https://via.placeholder.com/60" },
+                { label: "Dislike",img: "https://via.placeholder.com/60" },
+                { label: "Want",   img: "https://via.placeholder.com/60" }
+            ],
+            "people": [
+                { label: "Mom",    img: "https://via.placeholder.com/60" },
+                { label: "Dad",    img: "https://via.placeholder.com/60" },
+                { label: "Teacher",img: "https://via.placeholder.com/60" },
+                { label: "Friend", img: "https://via.placeholder.com/60" }
+            ],
+            "foods": [
+                { label: "Eat",    img: "https://via.placeholder.com/60" },
+                { label: "Drink",  img: "https://via.placeholder.com/60" },
+                { label: "Apple",  img: "https://via.placeholder.com/60" },
+                { label: "Juice",  img: "https://via.placeholder.com/60" }
+            ],
+            "actions": [
+                { label: "Stop",   img: "https://via.placeholder.com/60" },
+                { label: "Go",     img: "https://via.placeholder.com/60" },
+                { label: "Look",   img: "https://via.placeholder.com/60" },
+                { label: "Turn",   img: "https://via.placeholder.com/60" },
+                { label: "Open",   img: "https://via.placeholder.com/60" },
+                { label: "Close",  img: "https://via.placeholder.com/60" }
+            ],
+            "places": [
+                { label: "Home",   img: "https://via.placeholder.com/60" },
+                { label: "School", img: "https://via.placeholder.com/60" },
+                { label: "Park",   img: "https://via.placeholder.com/60" },
+                { label: "Store",  img: "https://via.placeholder.com/60" }
+            ]
+        };
+
+        const container = document.getElementById('podd-container');
+        const categoryListItems = document.querySelectorAll('.category-list li');
+        const selectionTextbox = document.getElementById('selection-textbox');
+        const clearButton = document.getElementById('clear-button');
+
+        // Keep track of selected items (labels)
+        let selectedItems = [];
+
+        // Update the textbox with the currently selected items
+        function updateTextbox() {
+            selectionTextbox.value = selectedItems.join(' ');
+        }
+
+        // Load a category
+        function loadCategory(cat) {
+            container.innerHTML = '';
+            categories[cat].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'podd-item';
+                div.innerHTML = `
+                    <img src="${item.img}" alt="${item.label}">
+                    <span>${item.label}</span>
+                `;
+                div.addEventListener('click', () => {
+                    const label = item.label;
+                    // Toggle selection
+                    if (div.classList.contains('selected')) {
+                        // If already selected, remove selection
+                        div.classList.remove('selected');
+                        selectedItems = selectedItems.filter(i => i !== label);
+                    } else {
+                        // If not selected, add selection
+                        div.classList.add('selected');
+                        selectedItems.push(label);
+                    }
+                    updateTextbox();
+                });
+                container.appendChild(div);
+            });
+        }
+
+        // Handle category clicks
+        categoryListItems.forEach(li => {
+            li.addEventListener('click', () => {
+                // Update selected category styling
+                categoryListItems.forEach(i => i.classList.remove('selected'));
+                li.classList.add('selected');
+
+                const cat = li.getAttribute('data-category');
+                loadCategory(cat);
+                // Note: No clearing of selectedItems here, so text persists
+            });
+        });
+
+        // Load a default category (e.g., 'core')
+        loadCategory('core');
+        document.querySelector('[data-category="core"]').classList.add('selected');
+
+        // Clear button functionality
+        clearButton.addEventListener('click', () => {
+            selectedItems = [];
+            updateTextbox();
+            // Also remove 'selected' class from currently displayed items
+            document.querySelectorAll('.podd-item.selected').forEach(item => item.classList.remove('selected'));
+        });
+    </script>
+</body>
+</html>
