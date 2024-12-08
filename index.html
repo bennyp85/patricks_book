@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>PODD Prototype with Categories, Textbox, and Clear Button</title>
+    <title>PODD Prototype with History</title>
     <style>
         body {
             margin: 0;
@@ -113,11 +113,45 @@
             box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
         }
 
-        .textbox-container {
-            padding: 10px;
+        .footer-section {
             background-color: #ffffff;
             border-top: 2px solid #ddd;
             box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .history-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .history-container .history-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 5px;
+            flex-shrink: 0;
+            background-color: #fafafa;
+        }
+
+        .history-container .history-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .history-container .history-item span {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .textbox-container {
             display: flex;
             align-items: flex-start;
             gap: 10px;
@@ -154,6 +188,14 @@
             .podd-item span {
                 font-size: 16px;
             }
+
+            .history-container .history-item img {
+                width: 50px;
+                height: 50px;
+            }
+            .history-container .history-item span {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -172,13 +214,18 @@
         </div>
         <div class="content-area">
             <div class="podd-container" id="podd-container">
-                <!-- Icons will be injected by JavaScript -->
+                <!-- Icons populated by JavaScript -->
             </div>
         </div>
     </div>
-    <div class="textbox-container">
-        <textarea id="selection-textbox" placeholder="Your selections will appear here..."></textarea>
-        <button id="clear-button">Clear</button>
+    <div class="footer-section">
+        <div class="history-container" id="history-container">
+            <!-- History of chosen icons appears here -->
+        </div>
+        <div class="textbox-container">
+            <textarea id="selection-textbox" placeholder="Your selections will appear here..."></textarea>
+            <button id="clear-button">Clear</button>
+        </div>
     </div>
 
     <script>
@@ -226,13 +273,28 @@
         const categoryListItems = document.querySelectorAll('.category-list li');
         const selectionTextbox = document.getElementById('selection-textbox');
         const clearButton = document.getElementById('clear-button');
+        const historyContainer = document.getElementById('history-container');
 
-        // Keep track of selected items (labels)
+        // Keep track of currently selected items (for the textbox)
         let selectedItems = [];
 
-        // Update the textbox with the currently selected items
+        // Keep track of full history of chosen icons
+        let historyItems = [];
+
+        // Update the textbox
         function updateTextbox() {
             selectionTextbox.value = selectedItems.join(' ');
+        }
+
+        // Add a history item to the UI
+        function addToHistory(img, label) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'history-item';
+            itemDiv.innerHTML = `
+                <img src="${img}" alt="${label}">
+                <span>${label}</span>
+            `;
+            historyContainer.appendChild(itemDiv);
         }
 
         // Load a category
@@ -249,13 +311,15 @@
                     const label = item.label;
                     // Toggle selection
                     if (div.classList.contains('selected')) {
-                        // If already selected, remove selection
+                        // Deselect
                         div.classList.remove('selected');
                         selectedItems = selectedItems.filter(i => i !== label);
                     } else {
-                        // If not selected, add selection
+                        // Select
                         div.classList.add('selected');
                         selectedItems.push(label);
+                        // Add to history
+                        addToHistory(item.img, item.label);
                     }
                     updateTextbox();
                 });
@@ -266,26 +330,29 @@
         // Handle category clicks
         categoryListItems.forEach(li => {
             li.addEventListener('click', () => {
-                // Update selected category styling
                 categoryListItems.forEach(i => i.classList.remove('selected'));
                 li.classList.add('selected');
-
                 const cat = li.getAttribute('data-category');
                 loadCategory(cat);
-                // Note: No clearing of selectedItems here, so text persists
+                // No clearing of selections or history on category switch
             });
         });
 
-        // Load a default category (e.g., 'core')
+        // Load a default category
         loadCategory('core');
         document.querySelector('[data-category="core"]').classList.add('selected');
 
         // Clear button functionality
         clearButton.addEventListener('click', () => {
             selectedItems = [];
+            historyItems = [];
             updateTextbox();
-            // Also remove 'selected' class from currently displayed items
+            
+            // Clear selection states in UI
             document.querySelectorAll('.podd-item.selected').forEach(item => item.classList.remove('selected'));
+            
+            // Clear history UI
+            historyContainer.innerHTML = '';
         });
     </script>
 </body>
