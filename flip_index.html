@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Flip Prototype with History</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #0078D7; /* Changed to match PODD's header color */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #ffffff;
+            border-right: 2px solid #ddd;
+            box-sizing: border-box;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            padding: 0;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .category-list li:hover, .category-list li.selected {
+            background-color: #0078D7; /* Match PODD's selected category color */
+            color: #fff;
+            border-color: #0078D7;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .flip-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-auto-rows: minmax(120px, auto);
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        .flip-item {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .flip-item.selected {
+            border-color: #0078D7; /* Match PODD's selected item color */
+            box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9; /* Existing styles */
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .history-container {
+            flex: 1;
+            max-width: 30%;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-left: auto; /* Center the container horizontally */
+            margin-right: auto; /* Center the container horizontally */
+            overflow-x: auto;
+            background-color: #f9f9f9;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .history-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Spacing between history items */
+            flex: 1;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Increased gap for better spacing */
+            padding: 5px 10px; /* Increased padding for better visibility */
+            border: 1px solid #0078D7; /* Match PODD's history item border */
+            border-radius: 6px;
+            background-color: #e6f0ff; /* Match PODD's history item background */
+            flex-shrink: 0;
+        }
+
+        .history-item .color-square {
+            width: 32px; /* Increased width */
+            height: 32px; /* Increased height */
+            border-radius: 4px; /* Slightly more rounded corners */
+            border: 1px solid #ccc;
+        }
+
+        .history-item span {
+            font-size: 14px; /* Increased font size for better readability */
+            color: #0078D7; /* Match PODD's text color */
+        }
+
+        .remove-button {
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #0078D7; /* Changed to blue */
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            transition: background-color 0.3s;
+            align-self: center; /* Align the button vertically */
+        }
+
+        .remove-button:hover {
+            background-color: #005a9e; /* Darker blue on hover */
+        }
+
+        .textbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-left: auto; /* Center the container horizontally */
+            margin-right: auto; /* Center the container horizontally */
+        }
+
+        .textbox-container textarea {
+            flex: 1;
+            height: 60px;
+            resize: none;
+            font-size: 16px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .textbox-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #0078D7; /* Match PODD's button color */
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        .textbox-container button:hover {
+            background-color: #005a9e; /* Darker shade for hover */
+        }
+
+        @media (pointer: coarse) {
+            .flip-item img {
+                width: 80px;
+                height: 80px;
+            }
+            .flip-item span {
+                font-size: 16px;
+            }
+
+            .history-item span {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Flip Communication Interface (Prototype)</div>
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>Categories</h2>
+            <ul class="category-list">
+                <li data-category="colours">Colours</li>
+                <li data-category="numbers">Numbers</li>
+            </ul>
+        </div>
+        <div class="content-area">
+            <div class="flip-container" id="flip-container">
+                <!-- Icons populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <div class="footer-section">
+        <div class="history-container" id="history-container">
+            <div class="history-items" id="history-items">
+                <!-- History of chosen selections appears here -->
+            </div>
+            <button id="remove-button" class="remove-button">Remove Last</button>
+        </div>
+        <div class="textbox-container">
+            <textarea id="selection-textbox" placeholder="Your selections will appear here..."></textarea>
+            <button id="clear-button">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // Define category data with color codes
+        const categories = {
+            "colours": [
+                { label: "Red", img: "https://via.placeholder.com/60/FF0000/FFFFFF?text=Red", code: "#FF0000" },
+                { label: "Blue", img: "https://via.placeholder.com/60/0000FF/FFFFFF?text=Blue", code: "#0000FF" },
+                { label: "Green", img: "https://via.placeholder.com/60/00FF00/FFFFFF?text=Green", code: "#00FF00" },
+                { label: "Yellow", img: "https://via.placeholder.com/60/FFFF00/FFFFFF?text=Yellow", code: "#FFFF00" },
+                { label: "Purple", img: "https://via.placeholder.com/60/800080/FFFFFF?text=Purple", code: "#800080" },
+                { label: "Brown", img: "https://via.placeholder.com/60/A52A2A/FFFFFF?text=Brown", code: "#A52A2A" },
+                { label: "Light Blue", img: "https://via.placeholder.com/60/ADD8E6/FFFFFF?text=Light+Blue", code: "#ADD8E6" },
+                { label: "Orange", img: "https://via.placeholder.com/60/FFA500/FFFFFF?text=Orange", code: "#FFA500" },
+                { label: "Grey", img: "https://via.placeholder.com/60/808080/FFFFFF?text=Grey", code: "#808080" },
+                { label: "Black", img: "https://via.placeholder.com/60/000000/FFFFFF?text=Black", code: "#000000" },
+                { label: "Wrong, I will choose again", img: "", code: "" }
+            ],
+            "numbers": [
+                { label: "One", value: "1" },
+                { label: "Two", value: "2" },
+                { label: "Three", value: "3" },
+                { label: "Four", value: "4" },
+                { label: "Five", value: "5" },
+                { label: "Six", value: "6" },
+                { label: "Seven", value: "7" },
+                { label: "Wrong, I will choose again", value: "" }
+            ]
+        };
+
+        const container = document.getElementById('flip-container');
+        const categoryListItems = document.querySelectorAll('.category-list li');
+        const selectionTextbox = document.getElementById('selection-textbox');
+        const clearButton = document.getElementById('clear-button');
+        const historyContainer = document.getElementById('history-container');
+        const historyItemsContainer = document.getElementById('history-items');
+        const removeButton = document.getElementById('remove-button');
+
+        let selectedColour = null;
+        let selectedNumber = null;
+        let historyItems = [];
+
+        // Mapping of colour labels to their color codes for easy access
+        const colourMap = {};
+        categories.colours.forEach(colour => {
+            colourMap[colour.label] = colour.code;
+        });
+
+        // Update the textbox
+        function updateTextbox() {
+            if (historyItems.length > 0) {
+                const selections = historyItems.map(item => `${item.colour} ${item.number}`).join(', ');
+                selectionTextbox.value = selections;
+            } else {
+                selectionTextbox.value = '';
+            }
+        }
+
+        // Add a history item to the UI
+        function addToHistory(colour, number) {
+            if (number === "") {
+                // Do not add if 'Wrong' is selected
+                return;
+            }
+            // Create the history item
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'history-item';
+            itemDiv.innerHTML = `
+                <div class="color-square" style="background-color: ${colourMap[colour]};"></div>
+                <span>${colour} ${number}</span>
+            `;
+
+            // Append the history item to the history-items container
+            historyItemsContainer.appendChild(itemDiv);
+
+            // Add to historyItems array
+            historyItems.push({ colour, number });
+            updateTextbox();
+        }
+
+        // Remove the last history item
+        function removeLastHistoryItem() {
+            if (historyItems.length === 0) return;
+            const allItems = historyItemsContainer.querySelectorAll('.history-item');
+            if (allItems.length > 0) {
+                const lastItem = allItems[allItems.length -1];
+                historyItemsContainer.removeChild(lastItem);
+                historyItems.pop();
+                updateTextbox();
+            }
+        }
+
+        // Load a category
+        function loadCategory(cat) {
+            container.innerHTML = '';
+            categories[cat].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'flip-item';
+                if (cat === 'colours') {
+                    div.innerHTML = `
+                        ${item.img ? `<img src="${item.img}" alt="${item.label}">` : ''}
+                        <span>${item.label}</span>
+                    `;
+                } else if (cat === 'numbers') {
+                    div.innerHTML = `
+                        <span>${item.label}</span>
+                    `;
+                }
+                div.addEventListener('click', () => {
+                    if (cat === 'colours') {
+                        if (item.label.toLowerCase().includes("wrong")) {
+                            // Handle "Wrong, I will choose again" selection
+                            selectedColour = null;
+                            selectedNumber = null;
+                            updateTextbox();
+                            alert("Selection cleared. Please choose again.");
+                            loadCategory('colours');
+                        } else {
+                            selectedColour = item.label;
+                            // Highlight selected colour
+                            document.querySelectorAll('.flip-item').forEach(fi => fi.classList.remove('selected'));
+                            div.classList.add('selected');
+                            // After selecting colour, prompt to select number
+                            loadCategory('numbers');
+                        }
+                    } else if (cat === 'numbers' && selectedColour) {
+                        if (item.label.toLowerCase().includes("wrong")) {
+                            // Handle "Wrong, I will choose again" selection
+                            selectedColour = null;
+                            selectedNumber = null;
+                            updateTextbox();
+                            alert("Selection cleared. Please choose again.");
+                            loadCategory('numbers');
+                        } else {
+                            selectedNumber = item.value;
+                            addToHistory(selectedColour, selectedNumber);
+                            // Reset selection
+                            selectedColour = null;
+                            selectedNumber = null;
+                            loadCategory('colours');
+                            document.querySelectorAll('.category-list li').forEach(li => li.classList.remove('selected'));
+                            document.querySelector('[data-category="colours"]').classList.add('selected');
+                        }
+                    }
+                });
+                container.appendChild(div);
+            });
+        }
+
+        // Handle category clicks
+        categoryListItems.forEach(li => {
+            li.addEventListener('click', () => {
+                categoryListItems.forEach(item => item.classList.remove('selected'));
+                li.classList.add('selected');
+                const category = li.getAttribute('data-category');
+                loadCategory(category);
+            });
+        });
+
+        // Handle remove button click
+        removeButton.addEventListener('click', () => {
+            removeLastHistoryItem();
+        });
+
+        // Load the default category
+        loadCategory('colours');
+        document.querySelector('[data-category="colours"]').classList.add('selected');
+
+        // Clear button functionality
+        clearButton.addEventListener('click', () => {
+            selectedColour = null;
+            selectedNumber = null;
+            historyItems = [];
+            updateTextbox();
+            // Clear selection states in UI
+            document.querySelectorAll('.flip-item.selected').forEach(item => item.classList.remove('selected'));
+            // Clear history UI
+            historyItemsContainer.innerHTML = '';
+            // Reload default category
+            loadCategory('colours');
+            document.querySelectorAll('.category-list li').forEach(li => li.classList.remove('selected'));
+            document.querySelector('[data-category="colours"]').classList.add('selected');
+        });
+    </script>
+</body>
+</html>
