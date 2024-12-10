@@ -293,7 +293,17 @@
             itemDiv.innerHTML = `
                 <img src="${img}" alt="${label}">
                 <span>${label}</span>
+                <button class="delete-btn">x</button>
             `;
+            // Add event listener for delete button
+            itemDiv.querySelector('.delete-btn').addEventListener('click', () => {
+                // Remove from selectedItems
+                selectedItems = selectedItems.filter(item => item !== label);
+                // Remove from history UI
+                historyContainer.removeChild(itemDiv);
+                // Update textbox
+                updateTextbox();
+            });
             historyContainer.appendChild(itemDiv);
         }
 
