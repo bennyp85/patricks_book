@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphabet Interface</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #fff;
+    }
+
+    .main-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Letters container: larger buttons, smaller gap, fixed max-height */
+    .letters-container {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 20px; /* Reduced from 10px */
+        padding: 10px;
+        box-sizing: border-box;
+        align-content: start;
+        justify-items: center;
+        max-height: 50%; /* Limit height so word section is higher up */
+        overflow: auto;
+    }
+
+    .letter-button {
+        width: 100px;  /* Twice as big as before */
+        height: 100px; /* Twice as big as before */
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #0078D7;
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .letter-button:hover {
+        background-color: #005a9e;
+    }
+
+    /* Word section: sits below letters, should now appear higher */
+    .word-section {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        box-sizing: border-box;
+    }
+
+    .current-word {
+        font-size: 36px;
+        font-weight: bold;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        padding: 10px 20px;
+        min-width: 200px;
+        text-align: center;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .control-buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    .control-button {
+        background-color: #0078D7;
+        color: #fff;
+        font-size: 24px;
+        padding: 20px 40px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .control-button:hover {
+        background-color: #005a9e;
+    }
+
+    .control-button:focus {
+        outline: 4px solid #005a9e;
+    }
+
+    /* Footer (history) */
+    .footer-section {
+        position: relative;
+        height: 120px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #ddd;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .history-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        max-width: 75%;
+        overflow-x: auto;
+    }
+
+    .history-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 10px 20px;
+        border: 1px solid #0078D7;
+        font-size: 36px;
+        font-weight: bold;
+        border-radius: 6px;
+        background-color: #fff;
+        white-space: nowrap;
+    }
+
+    .history-button-group {
+        display: flex;
+        gap: 20px;
+    }
+
+    .history-button {
+        padding: 20px 40px;
+        font-size: 24px;
+        background-color: #0078D7;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .history-button:hover {
+        background-color: #005a9e;
+    }
+
+    .history-button:focus {
+        outline: 4px solid #005a9e;
+    }
+</style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Letters at the top -->
+        <div class="letters-container" id="letters-container"></div>
+
+        <!-- Word section -->
+        <div class="word-section">
+            <div class="current-word" id="current-word"></div>
+            <div class="control-buttons">
+                <button class="control-button" id="enter-button">Enter</button>
+                <button class="control-button" id="delete-letter-button">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (history) -->
+    <div class="footer-section">
+        <div class="history-items" id="history-items"></div>
+        <div class="history-button-group">
+            <button class="history-button" id="delete-last-word-button">Delete</button>
+            <button class="history-button" id="clear-history-button">Clear</button>
+        </div>
+    </div>
+
+<script>
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+    const lettersContainer = document.getElementById('letters-container');
+    const currentWordElem = document.getElementById('current-word');
+    const enterButton = document.getElementById('enter-button');
+    const deleteLetterButton = document.getElementById('delete-letter-button');
+    const historyItemsContainer = document.getElementById('history-items');
+    const deleteLastWordButton = document.getElementById('delete-last-word-button');
+    const clearHistoryButton = document.getElementById('clear-history-button');
+
+    let currentWord = "";
+    let history = [];
+
+    // Generate letter buttons
+    letters.forEach(letter => {
+        const btn = document.createElement('div');
+        btn.className = 'letter-button';
+        btn.textContent = letter;
+        btn.addEventListener('click', () => {
+            currentWord += letter;
+            updateCurrentWordDisplay();
+        });
+        lettersContainer.appendChild(btn);
+    });
+
+    function updateCurrentWordDisplay() {
+        currentWordElem.textContent = currentWord;
+    }
+
+    // Enter adds current word to history
+    enterButton.addEventListener('click', () => {
+        if (currentWord.trim() !== "") {
+            history.push(currentWord);
+            addToHistoryDisplay(currentWord);
+            currentWord = "";
+            updateCurrentWordDisplay();
+        }
+    });
+
+    // Delete letter acts like backspace
+    deleteLetterButton.addEventListener('click', () => {
+        if (currentWord.length > 0) {
+            currentWord = currentWord.slice(0, -1);
+            updateCurrentWordDisplay();
+        }
+    });
+
+    // Add a word to the history display
+    function addToHistoryDisplay(word) {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.textContent = word;
+        historyItemsContainer.appendChild(item);
+    }
+
+    // Delete last word from history
+    deleteLastWordButton.addEventListener('click', () => {
+        if (history.length > 0) {
+            history.pop();
+            if (historyItemsContainer.lastChild) {
+                historyItemsContainer.removeChild(historyItemsContainer.lastChild);
+            }
+        }
+    });
+
+    // Clear all history
+    clearHistoryButton.addEventListener('click', () => {
+        history = [];
+        historyItemsContainer.innerHTML = '';
+    });
+</script>
+</body>
+</html>
