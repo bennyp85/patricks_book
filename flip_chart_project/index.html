@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Color & Number Selection</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <div class="main-container">
+        <!-- Color squares -->
+        <div class="square square-brown" data-color="Brown"></div>
+        <div class="square square-lightblue" data-color="Light Blue"></div>
+        <div class="square square-yellow" data-color="Yellow"></div>
+        <div class="square square-orange" data-color="Orange"></div>
+        <div class="square square-darkblue" data-color="Dark Blue"></div>
+        <div class="square square-red" data-color="Red"></div>
+        <div class="square square-green" data-color="Green"></div>
+        <div class="square square-grey" data-color="Grey"></div>
+        <div class="square square-purple" data-color="Purple"></div>
+        <div class="square square-black" data-color="Black"></div>
+
+        <!-- Numbers -->
+        <div class="number number1" data-number="1">1</div>
+        <div class="number number2" data-number="2">2</div>
+        <div class="number number3" data-number="3">3</div>
+        <div class="number number4" data-number="4">4</div>
+        <div class="number number5" data-number="5">5</div>
+        <div class="number number6" data-number="6">6</div>
+        <div class="number number7" data-number="7">7</div>
+
+        <!-- Chosen color display -->
+        <div class="chosen-color-display" id="chosen-color-display">
+            <div class="chosen-color-square" id="chosen-color-square"></div>
+        </div>
+    </div>
+
+    <!-- History and Buttons Section -->
+    <div class="footer-section">
+        <div class="footer-content">
+            <div class="history-items" id="history-items"></div>
+            <div class="button-group">
+                <button id="delete-button" class="delete-button" aria-label="Delete last entry or go back">Delete</button>
+                <button id="clear-button" class="clear-button" aria-label="Clear all history">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to External JavaScript -->
+    <script type="module" src="js/script.js"></script>
+</body>
+</html>

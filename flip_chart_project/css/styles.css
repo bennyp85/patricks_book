@@ -1,0 +1,215 @@
+/* Reset and Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.main-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    position: absolute;
+    cursor: pointer;
+}
+
+/* Positions for squares */
+.square-brown {
+    top: 20px;
+    left: 20px;
+    background-color: #8B4513;
+}
+.square-lightblue {
+    top: 140px;
+    left: 20px;
+    background-color: #ADD8E6;
+}
+.square-yellow {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFFF00;
+}
+.square-orange {
+    top: 20px;
+    right: 20px;
+    background-color: #FFA500;
+}
+.square-darkblue {
+    top: 140px;
+    right: 20px;
+    background-color: #00008B;
+}
+.square-red {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    background-color: #FF0000;
+}
+.square-green {
+    bottom: 160px;
+    left: 20px;
+    background-color: #2eb72e;
+}
+.square-grey {
+    bottom: 40px;
+    left: 20px;
+    background-color: #808080;
+}
+.square-purple {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #800080;
+}
+.square-black {
+    bottom: 40px;
+    right: 20px;
+    background-color: #000000;
+}
+
+.number {
+    position: absolute;
+    font-size: 65px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    display: none;
+    /* Add padding to increase hit area */
+    padding: 20px;
+}
+
+/* Show outline on hover to visualize the hit area */
+.number:hover {
+    outline: 2px dashed #999;
+}
+
+.number1 {
+    top: 20px;
+    left: 20px;
+}
+.number2 {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.number3 {
+    top: 20px;
+    right: 20px;
+}
+.number4 {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+}
+.number5 {
+    bottom: 40px;
+    left: 20px;
+}
+.number6 {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.number7 {
+    bottom: 40px;
+    right: 20px;
+}
+
+.footer-section {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 20px;
+    height: 120px; 
+    z-index: 9999;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 100%;
+}
+
+.history-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    border: 1px solid #0078D7;
+    font-size: 28px;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.history-item .color-square {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}
+
+.delete-button,
+.clear-button {
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #0078D7;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover,
+.clear-button:hover {
+    background-color: #005a9e;
+}
+
+.delete-button:focus,
+.clear-button:focus {
+    outline: 4px solid #005a9e;
+}
+
+.chosen-color-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    text-align: center;
+}
+
+.chosen-color-square {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #333;
+    border-radius: 10px;
+}
