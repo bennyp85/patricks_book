@@ -12,9 +12,12 @@ const chosenColorDisplay = document.getElementById('chosen-color-display');
 // Initialize application state
 let selectedColor = null;
 
+let isSelectionInProgress = false;
+
 // Function to handle color selection
 function handleColorSelect(color) {
     selectedColor = color;
+    isSelectionInProgress = true; // Set flag when a color is selected
     showNumbers(true);
 }
 
@@ -28,6 +31,8 @@ function handleNumberSelect(number) {
     showNumbers(false);
     showColors(true);
     showChosenColorDisplay(false);
+    resetNumberSelection();
+    isSelectionInProgress = false; // Reset flag after selection is complete
 }
 
 // Initialize color handlers
@@ -44,17 +49,21 @@ showChosenColorDisplay(false);
 // Delete Button Handler
 deleteButton.addEventListener('click', () => {
     console.log('selectedColor:', selectedColor);
-    console.log('getSelectedNumber():', getSelectedNumber());
+    console.log('isSelectionInProgress:', isSelectionInProgress);
+    console.log('history.length:', history.length);
 
-    if (selectedColor && !getSelectedNumber()) {
-        console.log('Condition met: selectedColor is true and getSelectedNumber() is false.');
+    if (isSelectionInProgress) {
+        console.log('Selection in progress. Resetting selection.');
         resetColorSelection();
-        showNumbers(false);
         showColors(true);
+        showNumbers(false);
         showChosenColorDisplay(false);
-    } else {
-        console.log('Condition not met: removing last history item.');
+        isSelectionInProgress = false;
+    } else if (history.length > 0) {
+        console.log('No selection in progress. Removing last history item.');
         removeLastHistoryItem();
+    } else {
+        console.log('No action to perform.');
     }
 });
 

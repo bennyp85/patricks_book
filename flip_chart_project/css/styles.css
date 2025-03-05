@@ -15,8 +15,8 @@ body {
 }
 
 .square {
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     border-radius: 4px;
     position: absolute;
     cursor: pointer;
@@ -29,7 +29,7 @@ body {
     background-color: #8B4513;
 }
 .square-lightblue {
-    top: 140px;
+    top: 160px;
     left: 20px;
     background-color: #ADD8E6;
 }
@@ -45,7 +45,7 @@ body {
     background-color: #FFA500;
 }
 .square-darkblue {
-    top: 140px;
+    top: 160px;
     right: 20px;
     background-color: #00008B;
 }
@@ -56,7 +56,7 @@ body {
     background-color: #FF0000;
 }
 .square-green {
-    bottom: 160px;
+    bottom: 180px;
     left: 20px;
     background-color: #2eb72e;
 }
@@ -85,7 +85,7 @@ body {
     cursor: pointer;
     display: none;
     /* Add padding to increase hit area */
-    padding: 20px;
+    padding: 40px;
 }
 
 /* Show outline on hover to visualize the hit area */
