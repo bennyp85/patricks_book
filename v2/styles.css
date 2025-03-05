@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: none;
+    height: 90vh;
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    height: 60%;
+    padding: 20px;
+}
+
+button {
+    padding: 20px;
+    font-size: 72px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+    transition: background-color 0.3s;
+    outline: 3px solid transparent;
+    outline-offset: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button#greenBtn, button#sceneBtn {
+    font-size: 48px;
+    background-color: #4CAF50;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.2;
+}
+
+button#greenBtn {
+    font-size: 48px;
+    background-color: #4CAF50; /* Start with green */
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.2;
+    transition: all 0.3s ease; /* Smooth transition for both color and text */
+}
+
+button#sceneBtn {
+    background-color: #2196F3;
+}
+
+button#deleteBtn, button#clearBtn {
+    background-color: #d81616;
+    color: white;
+    font-size: 36px;
+    padding: 0;  /* Remove padding */
+    min-width: 0;  /* Remove min-width */
+    width: 100%;  /* Make square */
+    aspect-ratio: 1;  /* Force square shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover, button:focus {
+    opacity: 0.8;
+    outline: 4px solid yellow;
+}
+
+.number {
+    background-color: blue; /* Numbers start blue */
+}
+
+.green-numbers .number {
+    background-color: green !important;
+}
+
+.bottom-section {
+    display: flex;
+    align-items: center;
+    height: 30%;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+
+.control-buttons {
+    display: flex;
+    flex-direction: row;  /* Changed from column to row */
+    gap: 20px;
+    width: 25%;
+    height: 75%;  /* Added to ensure full height */
+}
+
+.history-bar {
+    flex-grow: 1;
+    width: 75%;
+    height: 190px; /* Increased height */
+    border: 4px solid #666; /* Darker, thicker border */
+    padding: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 125px; /* Larger font size */
+    text-align: left;
+    border-radius: 15px;
+    background-color: #f8f8f8; /* Light background for contrast */
+    color: #000; /* Dark text color */
+    line-height: 1.2;
+    display: flex;
+    align-items: center; /* Center content vertically */
+}
