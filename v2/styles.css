@@ -8,15 +8,21 @@ body {
     background-color: #f0f0f0;
 }
 
+.main-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000;
+}
+
 .container {
     text-align: center;
-    background-color: white;
-    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 95%;
     max-width: none;
-    height: 90vh;
+    height: 95vh;
 }
 
 .number-grid {
@@ -25,22 +31,22 @@ body {
     grid-template-rows: repeat(2, 1fr);
     gap: 20px;
     height: 60%;
-    padding: 20px;
+    padding: 5px;
 }
 
 button {
     padding: 20px;
     font-size: 72px;
-    border: none;
+    border: rgb(0, 0, 0) 4px solid;
     border-radius: 15px;
     cursor: pointer;
-    background-color: blue;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     transition: background-color 0.3s;
     outline: 3px solid transparent;
     outline-offset: 8px;
     width: 100%;
-    height: 100%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,44 +92,87 @@ button:hover, button:focus {
 }
 
 .number {
-    background-color: blue; /* Numbers start blue */
+    background-color: rgb(255, 255, 255); /* Numbers start blue */
 }
 
 .green-numbers .number {
     background-color: green !important;
 }
-
+/* Update the bottom section CSS */
 .bottom-section {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     height: 30%;
-    margin-top: 30px;
     gap: 20px;
 }
 
-
-.control-buttons {
+.history-container {
     display: flex;
-    flex-direction: row;  /* Changed from column to row */
-    gap: 20px;
-    width: 25%;
-    height: 75%;  /* Added to ensure full height */
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* Slightly less than 50% to account for gap */
+    position: relative;
+}
+
+.history-label {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.active-label {
+    color: #FF9800;
+    transform: scale(1.1);
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .history-bar {
-    flex-grow: 1;
-    width: 75%;
-    height: 190px; /* Increased height */
-    border: 4px solid #666; /* Darker, thicker border */
-    padding: 20px;
+    width: 70%;
+    height: 120px;
+    border: 4px solid #666;
+    padding: 10px 20px;
+    margin-bottom: 10px;
     overflow-x: auto;
     white-space: nowrap;
-    font-size: 125px; /* Larger font size */
+    font-size: 72px;
     text-align: left;
     border-radius: 15px;
-    background-color: #f8f8f8; /* Light background for contrast */
-    color: #000; /* Dark text color */
+    background-color: #f8f8f8;
+    color: #000;
     line-height: 1.2;
     display: flex;
-    align-items: center; /* Center content vertically */
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+#dvdDeleteBtn, #dvdClearBtn, #sceneDeleteBtn, #sceneClearBtn {
+    background-color: #d81616;
+    color: white;
+    font-size: 36px;
+    padding: 0;  /* Remove padding */
+    border-radius: 15px;
+    width: 170px;  /* Fixed width */
+    height: 120px; /* Same as width for square shape */
+    aspect-ratio: 1; /* Force square shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Make the button container adjust to account for square buttons */
+.button-container {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    width: 100%;
+    gap: 20px;
 }

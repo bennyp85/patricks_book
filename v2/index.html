@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eye tracking number selector interface">
-    <title>Number Selector for Eye Tracking</title>
+    <title>Pat's DVDs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <main class="container">
+        <header class="site-header">
+            <h1 class="main-title">Pat's DVDs</h1>
+        </header>
         <!-- Number pad grid with additional control buttons -->
         <section class="number-grid">
             <!-- Top row -->
@@ -28,13 +31,23 @@
             <button id="sceneBtn" aria-label="Scene Selection">Scene</button>
         </section>
 
-        <!-- Bottom control section -->
         <section class="bottom-section">
-            <div class="control-buttons">
-                <button id="deleteBtn" aria-label="Delete last entry">Delete</button>
-                <button id="clearBtn" aria-label="Clear all entries">Clear</button>
+            <div class="history-container">
+                <div id="dvdLabel" class="history-label">DVD</div>
+                <div class="history-bar" id="dvdHistoryBar" aria-label="DVD input history"></div>
+                <div class="button-container">
+                    <button id="dvdDeleteBtn" aria-label="Delete last DVD entry">Delete</button>
+                    <button id="dvdClearBtn" aria-label="Clear all DVD entries">Clear</button>
+                </div>
             </div>
-            <div class="history-bar" id="historyBar" aria-label="Input history"></div>
+            <div class="history-container">
+                <div id="sceneLabel" class="history-label">Scene</div>
+                <div class="history-bar" id="sceneHistoryBar" aria-label="Scene input history"></div>
+                <div class="button-container">
+                    <button id="sceneDeleteBtn" aria-label="Delete last scene entry">Delete</button>
+                    <button id="sceneClearBtn" aria-label="Clear all scene entries">Clear</button>
+                </div>
+            </div>
         </section>
     </main>
     <script src="script.js"></script>
