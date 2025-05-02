@@ -10,7 +10,7 @@
 <body>
     <main class="container">
         <header class="site-header">
-            <h1 class="main-title">Pat's DVDs</h1>
+            <h1 class="main-title" id="titleUpload">Pat's DVDs</h1>
         </header>
         <!-- Number pad grid with additional control buttons -->
         <section class="number-grid">
@@ -40,6 +40,9 @@
                     <button id="dvdClearBtn" aria-label="Clear all DVD entries">Clear</button>
                 </div>
             </div>
+            <div class="find-container">
+                <button id="findBtn" aria-label="Find">Find</button>
+            </div>
             <div class="history-container">
                 <div id="sceneLabel" class="history-label">Scene</div>
                 <div class="history-bar" id="sceneHistoryBar" aria-label="Scene input history"></div>
@@ -48,6 +51,7 @@
                     <button id="sceneClearBtn" aria-label="Clear all scene entries">Clear</button>
                 </div>
             </div>
+
         </section>
     </main>
     <script src="script.js"></script>
