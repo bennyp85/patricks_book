@@ -87,15 +87,15 @@ body {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 25px;
-    height: 60%;
+    gap: 20px; /* Reduced from 25px to make buttons take less vertical space */
+    height: 55%; /* Reduced from 60% to provide more space for bottom section */
     padding: 10px;
     perspective: 1000px;
 }
 
 button {
-    padding: 10px;
-    font-size: 72px;
+    padding: 8px; /* Reduced from 10px */
+    font-size: 54px;
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -104,7 +104,7 @@ button {
     transition: all 0.25s ease-in-out;
     outline: none;
     width: 100%;
-    height: 80%;
+    height: 75%; /* Reduced from 80% */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +151,7 @@ button:active {
 }
 
 button#greenBtn, button#sceneBtn {
-    font-size: 42px;
+    font-size: 54px; /* Increased from 36px to match other buttons */
     font-weight: bold;
     white-space: normal;
     word-wrap: break-word;
@@ -170,10 +170,11 @@ button#sceneBtn {
 #dvdDeleteBtn, #dvdClearBtn, #sceneDeleteBtn, #sceneClearBtn {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
-    font-size: 36px;
+    font-size: 54px; /* Increased from 24px to match number grid buttons */
+    font-weight: bold; /* Added to match number grid buttons */
     border-radius: 15px;
     width: 45%;
-    height: 100px;
+    height: 130px;
     aspect-ratio: auto;
     display: flex;
     justify-content: center;
@@ -182,17 +183,19 @@ button#sceneBtn {
     flex-shrink: 1;
     box-sizing: border-box;
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Added to match number grid buttons */
 }
 
 #findBtn {
     background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
     color: white;
-    font-size: 48px;
+    font-size: 54px; /* Increased from 40px to match other buttons */
+    font-weight: bold; /* Added to match number grid buttons */
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     margin: 0 auto;
-    transform: translateY(10px);
+    transform: translateY(5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     text-transform: uppercase;
 }
@@ -206,10 +209,10 @@ button#sceneBtn {
 .bottom-section {
     display: flex;
     justify-content: space-between;
-    height: 30%;
-    gap: 20px;
-    padding: 0 10px;
-    align-items: center;
+    height: 35%; 
+    gap: 15px; /* Reduced from 20px */
+    padding: 0 10px 10px; /* Added bottom padding */
+    align-items: flex-start; /* Changed from center to push content to top */
 }
 
 .find-container {
@@ -217,6 +220,7 @@ button#sceneBtn {
     justify-content: center;
     align-items: center;
     width: 200px;
+    margin-top: -10px; /* Added negative margin to move up */
 }
 
 .history-container {
@@ -226,34 +230,28 @@ button#sceneBtn {
     width: 40%;
     position: relative;
     height: 100%;
-    justify-content: space-between;
+    justify-content: flex-start; /* Changed from space-between to compact layout */
+    padding-top: 0; /* Ensure no padding at top */
 }
 
 .history-label {
-    font-size: 40px;
+    font-size: 54px; /* Increased from 36px to match other text */
     font-weight: bold;
     color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     transition: all 0.3s ease;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.active-label {
-    color: #f39c12;
-    transform: scale(1.1);
-    text-decoration: underline;
-    text-shadow: 0 2px 8px rgba(243, 156, 18, 0.6);
-}
-
 .history-bar {
     width: 90%;
-    height: 100px;
+    height: 70px;
     border: none;
-    padding: 10px 20px;
-    margin-bottom: 15px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
     overflow-x: auto;
     white-space: nowrap;
-    font-size: 65px;
+    font-size: 54px; /* Increased from 46px to match other text */
     text-align: center;
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.1);
@@ -270,8 +268,9 @@ button#sceneBtn {
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 20px;
-    margin-top: 10px;
+    gap: 15px; /* Reduced from 20px */
+    margin-top: 5px; /* Increased from 2px to provide more space */
+    height: 130px; /* Added to ensure container properly fits the buttons */
 }
 
 /* Location page styles - updated for consistency */
