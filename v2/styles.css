@@ -127,14 +127,41 @@ button::before {
     pointer-events: none;
 }
 
+/* Number button styling - updated for three colors */
 .number {
-    background: linear-gradient(135deg, #2c3e50 0%, #4c5c68 100%);
-    color: white;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: #333;
     font-weight: bold;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-.green-numbers .number {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%) !important;
+.number::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+/* Green number styling */
+body.green-numbers .number {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Pink number styling - new */
+body.pink-numbers .number {
+    background: linear-gradient(135deg, #ff79c6 0%, #e84393 100%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 button:hover, button:focus {
@@ -161,6 +188,17 @@ button#greenBtn, button#sceneBtn {
 button#greenBtn {
     background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
     transition: all 0.3s ease;
+}
+
+body:not(.green-numbers) #greenBtn {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+}
+
+body.green-numbers #greenBtn {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 button#sceneBtn {
@@ -241,6 +279,50 @@ button#sceneBtn {
     margin-bottom: 5px;
     transition: all 0.3s ease;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Active label styles - updated for three color modes */
+.active-label {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
+    animation: pulse 1.5s infinite;
+    transition: all 0.3s ease;
+}
+
+/* White mode active label (default) */
+body:not(.green-numbers):not(.pink-numbers) .active-label {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: #333;
+    text-shadow: none;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+
+/* Green mode active label */
+body.green-numbers .active-label {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+}
+
+/* Pink mode active label - new */
+body.pink-numbers .active-label {
+    background: linear-gradient(135deg, #ff79c6 0%, #e84393 100%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 0 12px rgba(232, 67, 147, 0.6);
+}
+
+/* Inactive label styles - more subtle contrast */
+.history-label:not(.active-label) {
+    background-color: rgba(80, 80, 80, 0.4);
+    color: #ddd;
+    opacity: 0.7;
+    box-shadow: none;
 }
 
 .history-bar {
@@ -298,6 +380,107 @@ button#sceneBtn {
     backdrop-filter: blur(5px);
 }
 
+/* Color-specific styles for the DVD title container */
+.dvd-title-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-title-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-title-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.9) 0%, rgba(232, 67, 147, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Color-specific title text styles - updated to match dvd-number */
+.dvd-title-container.white .dvd-title {
+    background: linear-gradient(90deg, #000 0%, #444 50%, #000 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.dvd-title-container.green .dvd-title {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.dvd-title-container.pink .dvd-title {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+/* DVD number container styling */
+.dvd-number-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    padding: 15px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    max-width: 30%;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: perspective(1000px) rotateX(2deg);
+    backdrop-filter: blur(5px);
+}
+
+/* Color-specific styles for DVD number container */
+.dvd-number-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-number-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-number-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.9) 0%, rgba(232, 67, 147, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* DVD number display styling */
+.dvd-number {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Color-specific DVD number styles */
+.dvd-number-container.white .dvd-number {
+    color: #444;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.dvd-number-container.green .dvd-number {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.dvd-number-container.pink .dvd-number {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Remove the old DVD number from the title container */
+.dvd-title-container .dvd-number {
+    display: none;
+}
+
 .dvd-title {
     font-size: 5rem;
     text-align: center;
@@ -327,6 +510,47 @@ button#sceneBtn {
     border: 1px solid rgba(255, 255, 255, 0.5);
     transform: perspective(1000px) rotateX(-1deg);
     backdrop-filter: blur(5px);
+}
+
+/* Scene container color variations */
+.scene-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+}
+
+.scene-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.7) 0%, rgba(39, 174, 96, 0.7) 100%);
+}
+
+.scene-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.7) 0%, rgba(232, 67, 147, 0.7) 100%);
+}
+
+.scene-container.green .scene-title,
+.scene-container.pink .scene-title {
+    background: linear-gradient(90deg, #fff 0%, #f0f0f0 50%, #fff 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Update scene-title text styling for different color schemes */
+.scene-container.white .scene-title {
+    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2),
+                 0px 1px 0px rgba(255,255,255,0.3);
+}
+
+.scene-container.green .scene-title,
+.scene-container.pink .scene-title {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
 }
 
 .scene-title {
@@ -380,4 +604,41 @@ button#sceneBtn {
 
 .scene-number {
     display: none;
+}
+
+/* Update colorBtn styles for the three states */
+#colorBtn {
+    transition: all 0.3s ease;
+}
+
+/* Default state - shows "Green" */
+body:not(.green-numbers):not(.pink-numbers) #colorBtn {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+}
+
+/* Green state - shows "Pink" */
+body.green-numbers #colorBtn {
+    background: linear-gradient(135deg, #ff79c6 0%, #e84393 100%);
+    color: white;
+}
+
+/* Pink state - shows "White" */
+body.pink-numbers #colorBtn {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for active label - updated to have color-aware keyframes */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

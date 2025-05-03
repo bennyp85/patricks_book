@@ -8,38 +8,21 @@
 <body>
     <div class="location-wrapper">
         <button class="home-button" onclick="window.location.href='index.html'">Home</button>
-        <div class="dvd-title-container">
+        
+        <!-- DVD number container -->
+        <div class="dvd-number-container" id="dvd-number-container">
+            <div class="dvd-number" id="dvd-number"></div>
+        </div>
+        
+        <div class="dvd-title-container" id="dvd-container">
             <div class="dvd-title" id="title">Loading...</div>
         </div>
+        
         <div class="scene-container" id="scene-container">
             <div class="scene-title" id="scene-display"></div>
         </div>
     </div>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const dvd = params.get('dvd');
-        const color = params.get('color');
-        const scene = params.get('scene');
-
-        // grab the preloaded CSV
-        const csv = localStorage.getItem('csvData');
-        if (csv) {
-            const prefix = `${color}-${dvd},`;
-            const row = csv.split(/\r?\n/).find(l => l.startsWith(prefix));
-            document.getElementById('title').textContent =
-                row ? row.slice(prefix.length) : 'Not found';
-            
-            // Display scene number if available
-            if (scene && scene.trim() !== '') {
-                document.getElementById('scene-display').textContent = `Scene ${scene}`;
-                document.getElementById('scene-container').style.display = 'block';
-            } else {
-                document.getElementById('scene-container').style.display = 'none';
-            }
-        } else {
-            document.getElementById('title').textContent =
-                'Error: CSV not loaded';
-        }
-    </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
