@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Hide page numbers but keep them in the DOM for functionality */
+        .page-number {
+            display: none;
+        }
+        .button-controls {
+            margin-top: 10px;
+            text-align: center; /* Center the button controls */
+        }
+        .control-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 15px 30px; /* Increased padding for larger buttons */
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 16px; /* Increased font size for larger text */
+        }
+        .control-button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-title">Menu</div>
+
+    <div class="content-wrapper">
+        <div class="side-label-area">
+            <div class="side-label-text">2a Descriptions</div>
+        </div>
+        <div class="main-icon-board">
+            <!-- Row 1 -->
+            <div class="row-num-cell">1</div>
+            <button class="icon icon-brown-border" data-text="Yes">
+                <img src="menu icons/Yes.png" alt="Yes">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Right">
+                <img src="menu icons/Right.png" alt="Right">
+            </button>
+            <button class="icon icon-red-border" data-page="1.html">
+                <img src="menu icons/Quick Comment.png" alt="Quick comments">
+                <span class="page-number num-bg-1">1</span>
+            </button>
+            <button class="icon icon-green-border" data-page="8.html">
+                <img src="menu icons/Places.png" alt="Places">
+                <span class="page-number num-bg-8">8</span>
+            </button>
+            <button class="icon icon-grey-border" data-page="15.html">
+                <img src="menu icons/FoodDrink.png" alt="Food/Drink">
+                <span class="page-number num-bg-15">15</span>
+            </button>
+
+            <!-- Row 2 -->
+            <div class="row-num-cell">2</div>
+            <button class="icon icon-brown-border" data-text="No">
+                <img src="menu icons/No.png" alt="No">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Wrong">
+                <img src="menu icons/Wrong.png" alt="Wrong">
+            </button>
+            <button class="icon icon-red-border" data-page="2.html">
+                <img src="menu icons/Descriptions.png" alt="Descriptions">
+                <span class="page-number num-bg-2">2</span>
+            </button>
+            <button class="icon icon-green-border" data-page="9.html">
+                <img src="menu icons/Special Events.png" alt="Special Events">
+                <span class="page-number num-bg-9">9</span>
+            </button>
+            <button class="icon icon-grey-border" data-page="16.html">
+                <img src="menu icons/Dates and Times.png" alt="Dates and Times">
+                <span class="page-number num-bg-16">16</span>
+            </button>
+
+            <!-- Row 3 -->
+            <div class="row-num-cell">3</div>
+            <button class="icon icon-brown-border" data-text="Finish">
+                <img src="menu icons/Finish.png" alt="Finish">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Continue">
+                <img src="menu icons/Continue.png" alt="Continue">
+            </button>
+            <button class="icon icon-red-border" data-page="3.html">
+                <img src="menu icons/Health and Body.png" alt="Health and Body">
+                <span class="page-number num-bg-3">3</span>
+            </button>
+            <button class="icon icon-green-border" data-page="10.html">
+                <img src="menu icons/Clothes.png" alt="Clothes">
+                <span class="page-number num-bg-10">10</span>
+            </button>
+            <button class="icon icon-grey-border" data-page="17.html">
+                <img src="menu icons/Maths.png" alt="Maths">
+                <span class="page-number num-bg-17">17</span>
+            </button>
+
+            <!-- Row 4 -->
+            <div class="row-num-cell">4</div>
+            <button class="icon icon-brown-border" data-text="I want to spell with my alphabet board.">
+                <img src="menu icons/Spell.png" alt="Alphabet board">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Before">
+                <img src="menu icons/Before.png" alt="Before">
+            </button>
+            <button class="icon icon-red-border" data-page="4.html">
+                <img src="menu icons/Edit.png" alt="Edit">
+                <span class="page-number num-bg-4">4</span>
+            </button>
+            <button class="icon icon-green-border" data-page="11.html">
+                <img src="menu icons/Things.png" alt="Things">
+                <span class="page-number num-bg-11">11</span>
+            </button>
+            <button class="icon icon-grey-border" data-text="Thinking time">
+                <img src="menu icons/Thinking Time.png" alt="Thinking time">
+            </button>
+
+            <!-- Row 5 -->
+            <div class="row-num-cell">5</div>
+            <button class="icon icon-brown-border" data-text="I've changed my mind.">
+                <img src="menu icons/Change.png" alt="Changed mind">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Now">
+                <img src="menu icons/Now.png" alt="Now">
+            </button>
+            <button class="icon icon-red-border" data-page="5.html">
+                <img src="menu icons/People.png" alt="People">
+                <span class="page-number num-bg-5">5</span>
+            </button>
+            <button class="icon icon-green-border" data-page="12.html">
+                <img src="menu icons/Animals.png" alt="Animals">
+                <span class="page-number num-bg-12">12</span>
+            </button>
+            <button class="icon icon-grey-border" data-text="My boots hurt">
+                <img src="menu icons/Boots Hurt.png" alt="My boots hurt">
+            </button>
+
+            <!-- Row 6 -->
+            <div class="row-num-cell">6</div>
+            <button class="icon icon-brown-border" data-text="I forgot">
+                <img src="menu icons/Forgot.png" alt="I forgot">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Later">
+                <img src="menu icons/Later.png" alt="Later">
+            </button>
+            <button class="icon icon-red-border" data-page="6.html">
+                <img src="menu icons/Actions.png" alt="Actions">
+                <span class="page-number num-bg-6">6</span>
+            </button>
+            <button class="icon icon-green-border" data-page="13.html">
+                <img src="menu icons/Feelings.png" alt="Feelings">
+                <span class="page-number num-bg-13">13</span>
+            </button>
+            <button class="icon icon-grey-border" data-text="Pull my leg">
+                <img src="menu icons/Pull My Leg.png" alt="Pull my leg">
+            </button>
+
+            <!-- Row 7 -->
+            <div class="row-num-cell">7</div>
+            <button class="icon icon-brown-border" data-text="I remember">
+                <img src="menu icons/Remember.png" alt="I remember">
+            </button>
+            <button class="icon icon-lightblue-border" data-text="Start again">
+                <img src="menu icons/Start Again.png" alt="Start again">
+            </button>
+            <button class="icon icon-red-border" data-page="7.html">
+                <img src="menu icons/Activities.png" alt="Activities">
+                <span class="page-number num-bg-7">7</span>
+            </button>
+            <button class="icon icon-green-border" data-page="14.html">
+                <img src="menu icons/Transport.png" alt="Transport">
+                <span class="page-number num-bg-14">14</span>
+            </button>
+            <button class="icon icon-orange" data-text="I'm NOT comfortable Go to 3b">
+                <img src="menu icons/Not Comfortable.png" alt="Not comfortable">
+            </button>
+        </div>
+    </div>
+
+    <div id="clicked-icon-area">
+        <ul id="clicked-list"></ul>
+    </div>
+    
+    <div class="button-controls">
+        <button id="delete-button" class="control-button delete-button">Delete</button>
+        <button id="clear-button" class="control-button clear-button">Clear</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

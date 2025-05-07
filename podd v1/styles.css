@@ -1,0 +1,279 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E6F3F7; /* Light blue page background */
+    margin: 0;
+    padding: 10px; /* Reduced padding to allow more width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 20px; /* Increased bottom margin to compensate for removed color strip */
+    color: #333;
+}
+
+.content-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 95%; /* Increased from 900px to percentage-based */
+    justify-content: center;
+}
+
+.side-label-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+}
+
+.side-label-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    transform: rotate(180deg); /* To match image orientation */
+    white-space: nowrap;
+}
+
+.main-icon-board {
+    display: grid;
+    grid-template-columns: auto repeat(5, min-content); /* Keep min-content for width */
+    grid-template-rows: repeat(7, auto);
+    column-gap: 25px; /* Much wider gaps between columns */
+    row-gap: 12px; /* Slightly increased row gap */
+    flex-grow: 1;
+    width: 100%;
+    align-items: start;
+    justify-content: space-around; /* Distribute space evenly */
+}
+
+.row-num-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    padding-right: 5px; /* Space before first icon column */
+}
+
+/* Column styling - make borders super thick */
+.main-icon-board .icon:nth-child(6n+2) { /* First column of icons (brown) */
+    border-left: 12px solid #63341B;
+    border-right: 12px solid #63341B;
+}
+
+.main-icon-board .icon:nth-child(6n+3) { /* Second column of icons (light blue) */
+    border-left: 12px solid #97D8E9;
+    border-right: 12px solid #97D8E9;
+}
+
+.main-icon-board .icon:nth-child(6n+4) { /* Third column of icons (red) */
+    border-left: 12px solid #E51D21;
+    border-right: 12px solid #E51D21;
+}
+
+.main-icon-board .icon:nth-child(6n+5) { /* Fourth column of icons (green) */
+    border-left: 12px solid #59B954;
+    border-right: 12px solid #59B954;
+}
+
+.main-icon-board .icon:nth-child(6n) { /* Fifth column of icons (grey) */
+    border-left: 12px solid #BCBEC0;
+    border-right: 12px solid #BCBEC0;
+}
+
+/* Make icons size to their content with thicker borders */
+.icon {
+    display: inline-flex; /* Allows the box to shrink to its content */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Increased padding around the PNG */
+    border-top: 6px solid; /* Double the top border thickness */
+    border-bottom: 6px solid; /* Double the bottom border thickness */
+    border-radius: 0; /* Remove border radius for square appearance */
+    background-color: #f8f8f8; /* Light greyish-white icon background */
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent content spill */
+    width: auto; /* Allow width to be determined by content */
+    justify-self: start; /* Prevent stretching in grid cell */
+}
+
+.icon:hover {
+    opacity: 0.8;
+}
+
+.icon-main-text {
+    font-size: 0.85em; /* Slightly smaller text */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Space between text and image */
+    line-height: 1.2;
+}
+
+.icon img {
+    display: block; /* Remove extra space below image */
+    width: auto;    /* Use natural width of the PNG */
+    height: auto;   /* Use natural height of the PNG */
+    max-width: none; /* Remove max-width constraint */
+    object-fit: contain; /* Ensure image fits well */
+    margin: 0; /* Reset margin, centering is handled by flex on parent .icon */
+}
+
+/* Icon border colors */
+.icon-brown-border { border-color: #63341B; }
+.icon-lightblue-border { border-color: #97D8E9; }
+.icon-red-border { border-color: #E51D21; }
+.icon-green-border { border-color: #59B954; }
+.icon-grey-border { border-color: #BCBEC0; }
+
+.icon-orange {
+    background-color: #F58420;
+    border: 12px solid black !important; /* Make the orange button border super thick */
+}
+.icon-orange .icon-main-text {
+    color: black; /* Ensure text readability on orange */
+}
+
+
+.page-number {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+    line-height: 1;
+    min-width: 18px; /* Ensure square-ish shape for single digits */
+    text-align: center;
+}
+
+/* Numbered badge colors */
+.num-bg-1 { background-color: white; color: black; border: 1px solid #ccc; }
+.num-bg-2 { background-color: #97D8E9; color: black; } /* Light Blue */
+.num-bg-3 { background-color: #59B954; color: black; } /* Green */
+.num-bg-4 { background-color: #63341B; color: white; } /* Brown */
+.num-bg-5 { background-color: #8A2BE2; color: white; } /* Purple (BlueViolet) */
+.num-bg-6 { background-color: #E51D21; color: white; } /* Red */
+.num-bg-7 { background-color: #FFEB3B; color: black; } /* Yellow */
+.num-bg-8 { background-color: #8A2BE2; color: white; } /* Purple */
+.num-bg-9 { background-color: #FFEB3B; color: black; } /* Yellow */
+.num-bg-10 { background-color: #8A2BE2; color: white; } /* Purple */
+.num-bg-11 { background-color: #00008B; color: white; } /* Dark Blue */
+.num-bg-12 { background-color: #C71585; color: white; } /* Magenta (MediumVioletRed) */
+.num-bg-13 { background-color: #006400; color: white; } /* Dark Green */
+.num-bg-14 { background-color: #1E90FF; color: white; } /* Dodger Blue */
+.num-bg-15 { background-color: #696969; color: white; } /* Dark Grey (DimGray) */
+.num-bg-16 { background-color: #D3D3D3; color: black; } /* Light Grey */
+.num-bg-17 { background-color: #4B0082; color: white; } /* Dark Purple (Indigo) */
+
+
+#clicked-icon-area {
+    margin: 20px auto 10px; /* Top, horizontal (auto centers), bottom */
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 33%; /* Take up middle third of the area */
+    box-sizing: border-box;
+    min-height: 90px; /* Fixed height to prevent layout shifts */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+#clicked-icon-area p {
+    margin-top: 0;
+    font-weight: bold;
+}
+
+#clicked-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Center items */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#clicked-list li {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for text-based items */
+#clicked-list li:not(:has(img)) {
+    list-style-type: disc;
+    display: list-item;
+    text-align: left;
+    width: 100%;
+    padding-left: 20px;
+}
+
+/* Style for image items in the clicked area */
+.clicked-icon-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 4px;
+}
+
+/* Control buttons */
+.button-controls {
+    display: flex;
+    gap: 20px; /* Increased gap between buttons */
+    margin-bottom: 20px;
+    justify-content: center; /* Center the buttons */
+    width: 100%;
+    max-width: 95%; /* Increased from 860px to percentage-based */
+}
+
+.control-button {
+    padding: 16px 32px; /* Doubled padding for larger buttons */
+    border: none;
+    border-radius: 6px; /* Slightly larger radius for proportion */
+    font-weight: bold;
+    font-size: 1.2em; /* Larger font size */
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+    min-width: 180px; /* Ensure minimum width */
+    text-align: center; /* Center text */
+}
+
+.delete-button {
+    background-color: #e74c3c; /* Red */
+}
+
+.clear-button {
+    background-color: #c0392b; /* Darker red */
+}
+
+.control-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.control-button:active {
+    opacity: 1;
+    transform: translateY(1px);
+}
