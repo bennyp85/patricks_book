@@ -1,0 +1,4 @@
+locations
+- bedroom (bookcase 1/2/3/4)
+- loungeroom (bookcase 1/2)
+- garage

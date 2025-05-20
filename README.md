@@ -21,9 +21,3 @@ This project is a simple, frontend-only prototype inspired by a PODD (Pragmatic 
 
 - **Eye-Tracking Friendly Design (Future Integration):**  
   The icons and categories are presented with large clickable areas to support potential integration with eye-tracking hardware in the future.
-
-## Getting Started
-
-1. **Clone or Download the Repository:**  
-   ```bash
-   git clone https://github.com/your-username/podd-communication-interface.git

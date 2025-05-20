@@ -1,0 +1,13 @@
+dvd picker
+----------
+change colour word - COLOUR
+Change scene -> DVD/SCENE
+send dvd number back to home page
+
+PODD
+----
+colour at top of column
+no side tab name
+thinking time -> becomes -> dvd picker
+numbers on the left aligned and bigger
+black arrow
