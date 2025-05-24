@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const dvdHistoryBar = document.getElementById('dvdHistoryBar');
     const sceneHistoryBar = document.getElementById('sceneHistoryBar');
     const colorBtn = document.getElementById('colorBtn'); // Updated to use colorBtn directly
+    if (colorBtn) {
+        colorBtn.style.backgroundColor = '#2196F3'; // Permanent blue background
+        colorBtn.style.color = 'white'; // Permanent white text
+        // The textContent will be set by updateColorState initially
+    }
     const sceneBtn = document.getElementById('sceneBtn');
     const dvdClearBtn = document.getElementById('dvdClearBtn');
     const dvdDeleteBtn = document.getElementById('dvdDeleteBtn');
@@ -259,18 +264,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // No class needed for white (state 0)
         
         // Update button text and appearance based on NEXT color
-        if (colorState === 0) { // Currently White -> Button shows Green
+        if (colorState === 0) { // Currently White, button text should indicate next state (Green)
             colorBtn.textContent = 'Green';
-            colorBtn.style.backgroundColor = '#4CAF50';
-            colorBtn.style.color = 'white';
-        } else if (colorState === 1) { // Currently Green -> Button shows Pink
+            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
+        } else if (colorState === 1) { // Currently Green, button text should indicate next state (Pink)
             colorBtn.textContent = 'Pink';
-            colorBtn.style.backgroundColor = '#e84393';
-            colorBtn.style.color = 'white';
-        } else { // Currently Pink -> Button shows White
+            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
+        } else { // Currently Pink, button text should indicate next state (White)
             colorBtn.textContent = 'White';
-            colorBtn.style.backgroundColor = '#FFFFFF';
-            colorBtn.style.color = '#333';
+            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
         }
         
         // Update label styling to match the current color scheme
@@ -292,8 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Initialize button to show first color option
-    colorBtn.textContent = 'Green'; // Start with Green text
-    colorBtn.style.backgroundColor = '#4CAF50'; // Start with green color
+    // colorBtn.textContent = 'Green'; // Start with Green text
+    // colorBtn.style.backgroundColor = '#4CAF50'; // Start with green color
     
     // Initialize Scene button
     sceneBtn.textContent = 'Scene'; // Start with Scene text
@@ -448,6 +450,11 @@ function handleLocationPage() {
             
             // Display scene number if available
             const sceneContainer = document.getElementById('scene-container');
+    if (colorBtn) {
+        colorBtn.textContent = 'Blue';
+        colorBtn.style.backgroundColor = '#2196F3'; // Using the same blue as sceneBtn for consistency
+        colorBtn.style.color = 'white'; // Assuming white text like sceneBtn
+    }
             const sceneDisplay = document.getElementById('scene-display');
             
             if (sceneContainer && sceneDisplay) {
