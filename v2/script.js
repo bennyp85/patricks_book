@@ -12,11 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const dvdHistoryBar = document.getElementById('dvdHistoryBar');
     const sceneHistoryBar = document.getElementById('sceneHistoryBar');
     const colorBtn = document.getElementById('colorBtn'); // Updated to use colorBtn directly
-    if (colorBtn) {
-        colorBtn.style.backgroundColor = '#2196F3'; // Permanent blue background
-        colorBtn.style.color = 'white'; // Permanent white text
-        // The textContent will be set by updateColorState initially
-    }
     const sceneBtn = document.getElementById('sceneBtn');
     const dvdClearBtn = document.getElementById('dvdClearBtn');
     const dvdDeleteBtn = document.getElementById('dvdDeleteBtn');
@@ -264,15 +259,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // No class needed for white (state 0)
         
         // Update button text and appearance based on NEXT color
-        if (colorState === 0) { // Currently White, button text should indicate next state (Green)
-            colorBtn.textContent = 'Green';
-            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
-        } else if (colorState === 1) { // Currently Green, button text should indicate next state (Pink)
-            colorBtn.textContent = 'Pink';
-            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
-        } else { // Currently Pink, button text should indicate next state (White)
-            colorBtn.textContent = 'White';
-            // DO NOT set colorBtn.style.backgroundColor or colorBtn.style.color here
+        colorBtn.textContent = 'Colour'; // Always display 'Colour'
+        if (colorState === 0) { // Currently White -> Button shows Green style
+            colorBtn.style.backgroundColor = '#4CAF50';
+            colorBtn.style.color = 'white';
+        } else if (colorState === 1) { // Currently Green -> Button shows Pink style
+            colorBtn.style.backgroundColor = '#e84393';
+            colorBtn.style.color = 'white';
+        } else { // Currently Pink -> Button shows White style
+            colorBtn.style.backgroundColor = '#FFFFFF';
+            colorBtn.style.color = '#333';
         }
         
         // Update label styling to match the current color scheme
@@ -294,8 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Initialize button to show first color option
-    // colorBtn.textContent = 'Green'; // Start with Green text
-    // colorBtn.style.backgroundColor = '#4CAF50'; // Start with green color
+    colorBtn.textContent = 'Green'; // Start with Green text
+    colorBtn.style.backgroundColor = '#4CAF50'; // Start with green color
     
     // Initialize Scene button
     sceneBtn.textContent = 'Scene'; // Start with Scene text
@@ -333,26 +329,25 @@ document.addEventListener('DOMContentLoaded', () => {
         updateColorState();
     });
 
+    // Always display the color button as "Scene/DVD"
+    sceneBtn.textContent = 'Scene/DVD'; // Always show "Scene/DVD"
+
     // Scene button click handler
     sceneBtn.addEventListener('click', () => {
         isSceneMode = !isSceneMode;
-        // Update both text and color
+        // Update color only, text always "Scene/DVD"
         if (isSceneMode) {
-            sceneBtn.textContent = 'DVD';
             sceneBtn.style.backgroundColor = '#FF9800'; // Orange for Scene mode
-            updateLabelAnimations();
         } else {
-            sceneBtn.textContent = 'Scene';
             sceneBtn.style.backgroundColor = '#2196F3'; // Blue for DVD mode
-            updateLabelAnimations();
         }
+        updateLabelAnimations();
     });
 
     // Click on labels to switch modes
     dvdLabel.addEventListener('click', () => {
         if (isSceneMode) {
             isSceneMode = false;
-            sceneBtn.textContent = 'Scene';
             sceneBtn.style.backgroundColor = '#2196F3';
             updateLabelAnimations();
         }
@@ -361,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sceneLabel.addEventListener('click', () => {
         if (!isSceneMode) {
             isSceneMode = true;
-            sceneBtn.textContent = 'DVD';
             sceneBtn.style.backgroundColor = '#FF9800';
             updateLabelAnimations();
         }
@@ -450,11 +444,6 @@ function handleLocationPage() {
             
             // Display scene number if available
             const sceneContainer = document.getElementById('scene-container');
-    if (colorBtn) {
-        colorBtn.textContent = 'Blue';
-        colorBtn.style.backgroundColor = '#2196F3'; // Using the same blue as sceneBtn for consistency
-        colorBtn.style.color = 'white'; // Assuming white text like sceneBtn
-    }
             const sceneDisplay = document.getElementById('scene-display');
             
             if (sceneContainer && sceneDisplay) {
