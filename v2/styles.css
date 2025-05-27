@@ -178,7 +178,7 @@ button:active {
 }
 
 button#greenBtn, button#sceneBtn {
-    font-size: 54px; /* Increased from 36px to match other buttons */
+    font-size: 45px; /* Increased from 36px to match other buttons */
     font-weight: bold;
     white-space: normal;
     word-wrap: break-word;
@@ -203,6 +203,14 @@ body.green-numbers #greenBtn {
 
 button#sceneBtn {
     background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+button#colorBtn {
+    font-size: 45px; /* Increased from 36px to match other buttons */
+    font-weight: bold;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.2;
 }
 
 #dvdDeleteBtn, #dvdClearBtn, #sceneDeleteBtn, #sceneClearBtn {
@@ -606,35 +614,7 @@ body.pink-numbers .active-label {
     display: none;
 }
 
-/* Update colorBtn styles for the three states */
-/*
-#colorBtn {
-    transition: all 0.3s ease;
-}
-*/
-/* Default state - shows "Green" */
-/*
-body:not(.green-numbers):not(.pink-numbers) #colorBtn {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-    color: white;
-}
-*/
-/* Green state - shows "Pink" */
-/*
-body.green-numbers #colorBtn {
-    background: linear-gradient(135deg, #ff79c6 0%, #e84393 100%);
-    color: white;
-}
-*/
-/* Pink state - shows "White" */
-/*
-body.pink-numbers #colorBtn {
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    color: #333;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-*/
-/* Animation for active label - updated to have color-aware keyframes */
+
 @keyframes pulse {
   0% {
     transform: scale(1);
