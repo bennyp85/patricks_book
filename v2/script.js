@@ -10,22 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get references to all UI elements
     const numbers = document.querySelectorAll('.number');
     const dvdHistoryBar = document.getElementById('dvdHistoryBar');
-    const sceneHistoryBar = document.getElementById('sceneHistoryBar');
     const colorBtn = document.getElementById('colorBtn'); // Updated to use colorBtn directly
-    const sceneBtn = document.getElementById('sceneBtn');
     const dvdClearBtn = document.getElementById('dvdClearBtn');
     const dvdDeleteBtn = document.getElementById('dvdDeleteBtn');
-    const sceneClearBtn = document.getElementById('sceneClearBtn');
-    const sceneDeleteBtn = document.getElementById('sceneDeleteBtn');
     const dvdLabel = document.getElementById('dvdLabel');
-    const sceneLabel = document.getElementById('sceneLabel');
     const findBtn = document.getElementById('findBtn');
 
     let dvdHistory = [];
-    let sceneHistory = [];
     // Track colors using a state variable (0=white, 1=green, 2=pink)
     let colorState = 0;
-    let isSceneMode = false;
     
     // Make title clickable only if no CSV data is loaded
     if (titleUpload) {
@@ -275,17 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLabelAnimations();
     }
     
-    // Redirect to location.html with current DVD and Scene values - updated for three colors
+    // Redirect to location.html with current DVD value and color
     findBtn.addEventListener('click', () => {
         const dvd = dvdHistory.join('');
-        const scene = sceneHistory.join('');
         
         // Get color name based on state
         let color = 'white';
         if (colorState === 1) color = 'green';
         if (colorState === 2) color = 'pink';
         
-        const params = new URLSearchParams({ dvd, color, scene });
+        const params = new URLSearchParams({ dvd, color });
         window.location.href = `location.html?${params.toString()}`;
     });
     
@@ -293,34 +285,17 @@ document.addEventListener('DOMContentLoaded', () => {
     colorBtn.textContent = 'Green'; // Start with Green text
     colorBtn.style.backgroundColor = '#4CAF50'; // Start with green color
     
-    // Initialize Scene button
-    sceneBtn.textContent = 'Scene'; // Start with Scene text
-    sceneBtn.style.backgroundColor = '#2196F3'; // Start with blue color
-    
     // Initialize with DVD label highlighted
     dvdLabel.classList.add('active-label');
     
-    // Function to update label animations - enhanced to handle three color modes
+    // Function to update label animations - only DVD label now
     function updateLabelAnimations() {
-        // First determine which label should be active
-        if (isSceneMode) {
-            dvdLabel.classList.remove('active-label');
-            sceneLabel.classList.add('active-label');
-            
-            sceneLabel.setAttribute('aria-selected', 'true');
-            dvdLabel.setAttribute('aria-selected', 'false');
-        } else {
-            sceneLabel.classList.remove('active-label');
-            dvdLabel.classList.add('active-label');
-            
-            dvdLabel.setAttribute('aria-selected', 'true');
-            sceneLabel.setAttribute('aria-selected', 'false');
-        }
+        dvdLabel.classList.add('active-label');
+        dvdLabel.setAttribute('aria-selected', 'true');
     }
     
     // Initialize accessibility attributes
     dvdLabel.setAttribute('aria-selected', 'true');
-    sceneLabel.setAttribute('aria-selected', 'false');
     
     // Color button click handler
     colorBtn.addEventListener('click', () => {
@@ -329,49 +304,13 @@ document.addEventListener('DOMContentLoaded', () => {
         updateColorState();
     });
 
-    // Always display the color button as "Scene/DVD"
-    sceneBtn.textContent = 'Scene/DVD'; // Always show "Scene/DVD"
-
-    // Scene button click handler
-    sceneBtn.addEventListener('click', () => {
-        isSceneMode = !isSceneMode;
-        // Update color only, text always "Scene/DVD"
-        if (isSceneMode) {
-            sceneBtn.style.backgroundColor = '#FF9800'; // Orange for Scene mode
-        } else {
-            sceneBtn.style.backgroundColor = '#2196F3'; // Blue for DVD mode
-        }
-        updateLabelAnimations();
-    });
-
-    // Click on labels to switch modes
-    dvdLabel.addEventListener('click', () => {
-        if (isSceneMode) {
-            isSceneMode = false;
-            sceneBtn.style.backgroundColor = '#2196F3';
-            updateLabelAnimations();
-        }
-    });
-
-    sceneLabel.addEventListener('click', () => {
-        if (!isSceneMode) {
-            isSceneMode = true;
-            sceneBtn.style.backgroundColor = '#FF9800';
-            updateLabelAnimations();
-        }
-    });
-
     // Number button click handlers
     numbers.forEach(button => {
         button.addEventListener('click', () => {
             const value = button.getAttribute('data-value');
-            if (isSceneMode) {
-                sceneHistory.push(value);
-                updateSceneHistory();
-            } else {
-                dvdHistory.push(value);
-                updateDVDHistory();
-            }
+            // Only DVD history now
+            dvdHistory.push(value);
+            updateDVDHistory();
         });
     });
 
@@ -386,23 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDVDHistory();
     });
 
-    // Scene buttons
-    sceneDeleteBtn.addEventListener('click', () => {
-        sceneHistory.pop();
-        updateSceneHistory();
-    });
-
-    sceneClearBtn.addEventListener('click', () => {
-        sceneHistory = [];
-        updateSceneHistory();
-    });
-
     function updateDVDHistory() {
         dvdHistoryBar.textContent = dvdHistory.join(' ');
-    }
-
-    function updateSceneHistory() {
-        sceneHistoryBar.textContent = sceneHistory.join(' ');
     }
     
     // Call updateColorState to initialize the UI correctly
@@ -415,15 +339,17 @@ function handleLocationPage() {
     const params = new URLSearchParams(window.location.search);
     const dvd = params.get('dvd');
     const color = params.get('color') || 'white';
-    const scene = params.get('scene');
 
     // Set the appropriate color class for both containers
     const dvdContainer = document.getElementById('dvd-container');
     const dvdNumberContainer = document.getElementById('dvd-number-container');
+    const locationContainer = document.getElementById('location-container'); // Add this line
+
     
-    if (dvdContainer && dvdNumberContainer) {
+    if (dvdContainer && dvdNumberContainer && locationContainer) {
         dvdContainer.classList.add(color);
         dvdNumberContainer.classList.add(color);
+        locationContainer.classList.add(color);
         
         // Display the DVD number
         const dvdNumber = document.getElementById('dvd-number');
@@ -435,33 +361,27 @@ function handleLocationPage() {
         const csv = localStorage.getItem('csvData');
         if (csv) {
             const prefix = `${color}-${dvd},`;
+            // Find the row that starts with the prefix
             const row = csv.split(/\r?\n/).find(l => l.startsWith(prefix));
             const titleElement = document.getElementById('title');
+            const locationElement = document.getElementById('location-display'); // new div for location
             
-            if (titleElement) {
-                titleElement.textContent = row ? row.slice(prefix.length) : 'Not found';
-            }
-            
-            // Display scene number if available
-            const sceneContainer = document.getElementById('scene-container');
-            const sceneDisplay = document.getElementById('scene-display');
-            
-            if (sceneContainer && sceneDisplay) {
-                if (scene && scene.trim() !== '') {
-                    sceneDisplay.textContent = `Scene ${scene}`;
-                    sceneContainer.style.display = 'block';
-                    
-                    // Also apply the color to scene container
-                    sceneContainer.className = `scene-container ${color}`;
-                } else {
-                    sceneContainer.style.display = 'none';
-                }
+            if (row) {
+                // Parse CSV columns: dvd_num,title,location,book case,shelf,display type
+                const columns = row.split(',');
+                const title = columns[1] || '';
+                const location = columns[2] || '';
+                if (titleElement) titleElement.textContent = title;
+                if (locationElement) locationElement.textContent = location;
+            } else {
+                if (titleElement) titleElement.textContent = 'Not found';
+                if (locationElement) locationElement.textContent = '';
             }
         } else {
             const titleElement = document.getElementById('title');
-            if (titleElement) {
-                titleElement.textContent = 'Error: CSV not loaded';
-            }
+            const locationElement = document.getElementById('location-display');
+            if (titleElement) titleElement.textContent = 'Error: CSV not loaded';
+            if (locationElement) locationElement.textContent = '';
         }
     } else {
         console.error('Required DOM elements not found on location page');

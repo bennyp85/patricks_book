@@ -428,6 +428,72 @@ body.pink-numbers .active-label {
     background-clip: initial;
 }
 
+/* DVD location container styling */
+.dvd-location-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    padding: 20px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    max-width: 90%;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: perspective(1000px) rotateX(2deg);
+    backdrop-filter: blur(5px);
+}
+
+/* Color-specific styles for DVD location container */
+.dvd-location-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-location-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-location-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.9) 0%, rgba(232, 67, 147, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* DVD location display styling */
+.dvd-location {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Color-specific DVD location styles */
+.dvd-location-container.white .dvd-location {
+    color: #444;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.dvd-location-container.green .dvd-location {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.dvd-location-container.pink .dvd-location {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+
 /* DVD number container styling */
 .dvd-number-container {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
@@ -507,74 +573,6 @@ body.pink-numbers .active-label {
     z-index: 1;
 }
 
-.scene-container {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
-    padding: 20px 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 
-                inset 0 2px 10px rgba(255, 255, 255, 0.3);
-    max-width: 60%;
-    display: none;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transform: perspective(1000px) rotateX(-1deg);
-    backdrop-filter: blur(5px);
-}
-
-/* Scene container color variations */
-.scene-container.white {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
-}
-
-.scene-container.green {
-    background: linear-gradient(135deg, rgba(46, 204, 113, 0.7) 0%, rgba(39, 174, 96, 0.7) 100%);
-}
-
-.scene-container.pink {
-    background: linear-gradient(135deg, rgba(255, 121, 198, 0.7) 0%, rgba(232, 67, 147, 0.7) 100%);
-}
-
-.scene-container.green .scene-title,
-.scene-container.pink .scene-title {
-    background: linear-gradient(90deg, #fff 0%, #f0f0f0 50%, #fff 100%);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-/* Update scene-title text styling for different color schemes */
-.scene-container.white .scene-title {
-    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2),
-                 0px 1px 0px rgba(255,255,255,0.3);
-}
-
-.scene-container.green .scene-title,
-.scene-container.pink .scene-title {
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    background: none;
-    -webkit-background-clip: initial;
-    background-clip: initial;
-}
-
-.scene-title {
-    font-size: 3.5rem;
-    text-align: center;
-    font-weight: bold;
-    margin: 0;
-    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 
-        2px 2px 4px rgba(0,0,0,0.2),
-        0px 1px 0px rgba(255,255,255,0.3);
-}
-
 .home-button {
     position: absolute;
     top: 30px;
@@ -609,11 +607,6 @@ body.pink-numbers .active-label {
     transform: translateX(-50%) translateY(2px);
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
-
-.scene-number {
-    display: none;
-}
-
 
 @keyframes pulse {
   0% {
