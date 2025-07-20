@@ -340,23 +340,26 @@ function handleLocationPage() {
     const dvd = params.get('dvd');
     const color = params.get('color') || 'white';
 
-    // Set the appropriate color class for both containers
+    // Set the appropriate color class for all containers
     const dvdContainer = document.getElementById('dvd-container');
     const dvdNumberContainer = document.getElementById('dvd-number-container');
-    const locationContainer = document.getElementById('location-container'); // Add this line
+    const locationContainer = document.getElementById('location-container');
+    const bookcaseContainer = document.getElementById('bookcase-container');
+    const shelfContainer = document.getElementById('shelf-container'); // new
 
-    
-    if (dvdContainer && dvdNumberContainer && locationContainer) {
+    if (dvdContainer && dvdNumberContainer && locationContainer && bookcaseContainer && shelfContainer) {
         dvdContainer.classList.add(color);
         dvdNumberContainer.classList.add(color);
         locationContainer.classList.add(color);
-        
+        bookcaseContainer.classList.add(color);
+        shelfContainer.classList.add(color);
+
         // Display the DVD number
         const dvdNumber = document.getElementById('dvd-number');
         if (dvdNumber) {
             dvdNumber.textContent = `${dvd}`;
         }
-        
+
         // grab the preloaded CSV
         const csv = localStorage.getItem('csvData');
         if (csv) {
@@ -364,24 +367,36 @@ function handleLocationPage() {
             // Find the row that starts with the prefix
             const row = csv.split(/\r?\n/).find(l => l.startsWith(prefix));
             const titleElement = document.getElementById('title');
-            const locationElement = document.getElementById('location-display'); // new div for location
-            
+            const locationElement = document.getElementById('location-display');
+            const bookcaseElement = document.getElementById('bookcase');
+            const shelfElement = document.getElementById('shelf'); // new
+
             if (row) {
                 // Parse CSV columns: dvd_num,title,location,book case,shelf,display type
                 const columns = row.split(',');
                 const title = columns[1] || '';
                 const location = columns[2] || '';
+                const bookcase = columns[3] || '';
+                const shelf = columns[4] || '';
                 if (titleElement) titleElement.textContent = title;
                 if (locationElement) locationElement.textContent = location;
+                if (bookcaseElement) bookcaseElement.textContent = bookcase ? `Bookcase: ${bookcase}` : '';
+                if (shelfElement) shelfElement.textContent = shelf ? `Shelf: ${shelf}` : '';
             } else {
                 if (titleElement) titleElement.textContent = 'Not found';
                 if (locationElement) locationElement.textContent = '';
+                if (bookcaseElement) bookcaseElement.textContent = '';
+                if (shelfElement) shelfElement.textContent = '';
             }
         } else {
             const titleElement = document.getElementById('title');
             const locationElement = document.getElementById('location-display');
+            const bookcaseElement = document.getElementById('bookcase');
+            const shelfElement = document.getElementById('shelf');
             if (titleElement) titleElement.textContent = 'Error: CSV not loaded';
             if (locationElement) locationElement.textContent = '';
+            if (bookcaseElement) bookcaseElement.textContent = '';
+            if (shelfElement) shelfElement.textContent = '';
         }
     } else {
         console.error('Required DOM elements not found on location page');

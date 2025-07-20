@@ -619,3 +619,115 @@ body.pink-numbers .active-label {
     transform: scale(1);
   }
 }
+
+/* DVD Bookcase container styling */
+.dvd-bookcase-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    padding: 15px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    max-width: 30%;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: perspective(1000px) rotateX(2deg);
+    backdrop-filter: blur(5px);
+}
+
+/* Color-specific styles for DVD bookcase container */
+.dvd-bookcase-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-bookcase-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-bookcase-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.9) 0%, rgba(232, 67, 147, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* DVD bookcase display styling */
+.dvd-bookcase {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Color-specific DVD bookcase styles */
+.dvd-bookcase-container.white .dvd-bookcase {
+    color: #444;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.dvd-bookcase-container.green .dvd-bookcase {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.dvd-bookcase-container.pink .dvd-bookcase {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* DVD Shelf container styling */
+.dvd-shelf-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    padding: 15px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    max-width: 30%;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: perspective(1000px) rotateX(2deg);
+    backdrop-filter: blur(5px);
+}
+
+/* Color-specific styles for DVD shelf container */
+.dvd-shelf-container.white {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-shelf-container.green {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.dvd-shelf-container.pink {
+    background: linear-gradient(135deg, rgba(255, 121, 198, 0.9) 0%, rgba(232, 67, 147, 0.9) 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* DVD shelf display styling */
+.dvd-shelf {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Color-specific DVD shelf styles */
+.dvd-shelf-container.white .dvd-shelf {
+    color: #444;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.dvd-shelf-container.green .dvd-shelf {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.dvd-shelf-container.pink .dvd-shelf {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
